@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PEN - Learn Python, C, Bash, Linux</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex justify-between items-center">
+    <div class="text-xl font-bold">PEN</div>
+    <nav class="md:flex hidden space-x-4">
+      <a href="#home" class="hover:text-blue-500">Home</a>
+      <a href="#about" class="hover:text-blue-500">About</a>
+      <a href="#forum" class="hover:text-blue-500">Forum</a>
+    </nav>
+    <div class="md:hidden">
+      <button id="menuToggle" class="text-xl">Menu</button>
+      <div id="mobileMenu" class="hidden absolute bg-white right-4 top-16 p-2 shadow rounded space-y-2">
+        <a href="#home" class="block">Home</a>
+        <a href="#about" class="block">About</a>
+        <a href="#forum" class="block">Forum</a>
+      </div>
+    </div>
+  </header>  <!-- Main -->  <main id="home" class="p-6">
+    <div class="text-center">
+      <div class="text-3xl font-bold mb-4">Learn Python, C, Bash, Linux</div>
+      <div id="slider" class="text-2xl font-semibold h-12 mb-6"></div>
+      <a href="#forum" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Register Now</a>
+    </div>
+  </main>  <!-- About -->  <section id="about" class="p-6">
+    <h2 class="text-2xl font-bold mb-4">About</h2>
+    <p>We teach Python, C, Bash, and Linux through interactive lessons and real-time discussions in the forum.</p>
+  </section>  <!-- Forum -->  <section id="forum" class="p-6">
+    <h2 class="text-2xl font-bold mb-4">Forum</h2>
+    <div id="authSection">
+      <input id="email" placeholder="Email" class="border p-2 mr-2">
+      <input id="password" type="password" placeholder="Password" class="border p-2 mr-2">
+      <button onclick="signUp()" class="bg-green-600 text-white px-4 py-1 rounded">Sign Up</button>
+      <button onclick="signIn()" class="bg-blue-600 text-white px-4 py-1 rounded">Sign In</button>
+    </div>
+    <div id="chatSection" class="hidden mt-4">
+      <div id="chatBox" class="border h-40 overflow-y-scroll p-2 mb-2"></div>
+      <input id="message" placeholder="Type your message..." class="border p-2 w-3/4">
+      <button onclick="sendMessage()" class="bg-indigo-600 text-white px-4 py-1 rounded">Send</button>
+    </div>
+  </section>  <!-- Footer -->  <footer class="bg-white mt-10 p-4 text-center border-t">
+    <p>Topics: Python, C, Bash, Linux</p>
+    <div class="mt-2 space-x-4">
+      <a href="#" class="text-blue-500">TikTok</a>
+      <a href="#" class="text-red-600">YouTube</a>
+      <a href="#" class="text-pink-600">Instagram</a>
+      <a href="https://wa.me/1234567890" target="_blank" class="inline-flex items-center">
+        <img src="https://img.icons8.com/color/24/000000/whatsapp--v1.png" class="mr-1" /> WhatsApp Bot
+      </a>
+    </div>
+  </footer>  <!-- JavaScript -->  <script>
+    document.getElementById('menuToggle').addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    });
+
+    const topics = ["Python", "C", "Bash", "Linux"];
+    let index = 0;
+    setInterval(() => {
+      document.getElementById("slider").innerText = topics[index];
+      index = (index + 1) % topics.length;
+    }, 2000);
+
+    // Firebase setup
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
+
+    function signUp() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert('Signed Up'))
+        .catch(err => alert(err.message));
+    }
+
+    function signIn() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+          document.getElementById('authSection').style.display = 'none';
+          document.getElementById('chatSection').style.display = 'block';
+          db.ref('chat').on('child_added', snapshot => {
+            const msg = snapshot.val();
+            const div = document.createElement('div');
+            div.textContent = msg;
+            document.getElementById('chatBox').appendChild(div);
+          });
+        })
+        .catch(err => alert(err.message));
+    }
+
+    function sendMessage() {
+      const msg = document.getElementById('message').value;
+      db.ref('chat').push(msg);
+      document.getElementById('message').value = '';
+    }
+  </script></body>
+</html>
