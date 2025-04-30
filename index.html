@@ -2,472 +2,177 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Learn Python, C, Bash, and Linux Administration from an experienced instructor">
-    <meta name="keywords" content="programming courses, Python, C language, Bash scripting, Linux administration">
-    <title>CodeMaster Academy | Programming Courses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster Academy</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Firebase for real-time chat -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <!-- Favicon -->
-    <link rel="icon" href="https://via.placeholder.com/32" type="image/png">
+    
     <style>
-        :root {
-            --primary-color: #3b82f6;
-            --secondary-color: #10b981;
-            --dark-bg: rgba(15, 23, 42, 0.9);
-        }
-        
-        body {
-            background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+        .matrix-bg {
+            background: linear-gradient(to right, #000000, #001f00);
             position: relative;
-            min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
         
-        /* Social Media Icons - Bold Style */
-        .social-icon {
-            font-size: 1.25rem;
-            width: 40px;
-            height: 40px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            font-weight: 900;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        .matrix-bg::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
+            animation: matrix 3s linear infinite;
         }
-        
-        .social-icon.facebook {
-            background-color: #1877f2;
-            color: white;
+
+        @keyframes matrix {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
         }
-        
-        .social-icon.tiktok {
-            background-color: #000000;
-            color: white;
+
+        .course-card {
+            transition: transform 0.3s ease;
         }
-        
-        .social-icon.linkedin {
-            background-color: #0a66c2;
-            color: white;
-        }
-        
-        .social-icon.instagram {
-            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
-            color: white;
-        }
-        
-        .social-icon.youtube {
-            background-color: #ff0000;
-            color: white;
-        }
-        
-        .social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        
-        /* Student Forum Styles */
-        .forum-container {
-            background-color: rgba(30, 41, 59, 0.8);
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .forum-message {
-            background-color: rgba(15, 23, 42, 0.7);
-            border-radius: 8px;
-            border-left: 3px solid var(--primary-color);
-        }
-        
-        .forum-message:hover {
-            background-color: rgba(15, 23, 42, 0.9);
-        }
-        
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .message-time {
-            font-size: 0.75rem;
-            color: rgba(255,255,255,0.6);
-        }
-        
-        /* Comment Section Styles */
-        .comment-section {
-            background-color: rgba(30, 41, 59, 0.7);
-            border-radius: 10px;
-        }
-        
-        .comment-card {
-            background-color: rgba(15, 23, 42, 0.6);
-            border-left: 3px solid var(--secondary-color);
-        }
-        
-        /* Rest of your existing styles... */
-        /* ... (keep all your previous styles from earlier versions) ... */
-        
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb;
+
+        .course-card:hover {
+            transform: translateY(-5px);
         }
     </style>
 </head>
-<body class="text-gray-100">
-    <!-- Navigation (same as before) -->
-    <!-- ... -->
-
-    <!-- Student Forum Section -->
-    <section id="forum" class="content py-12 md:py-16 bg-slate-900 bg-opacity-70">
+<body class="matrix-bg text-white">
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <h2 class="text-3xl font-bold text-center mb-8 md:mb-12">Student Forum</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="forum-container p-4 mb-4">
-                        <div id="forum-messages" class="space-y-3">
-                            <!-- Messages will be loaded here by JavaScript -->
-                            <div class="text-center py-4 text-gray-400">
-                                <i class="fas fa-comments fa-2x mb-2"></i>
-                                <p>Loading forum messages...</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-slate-800 bg-opacity-70 rounded-lg p-4">
-                        <h4 class="text-xl font-semibold mb-3">Post a Message</h4>
-                        <form id="message-form" class="space-y-3">
-                            <div class="form-group">
-                                <input type="text" id="message-name" class="form-control bg-slate-700 border-slate-600 text-white" 
-                                       placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="message-text" class="form-control bg-slate-700 border-slate-600 text-white" 
-                                          rows="3" placeholder="Your Message" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-paper-plane me-2"></i> Post Message
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            <a class="navbar-brand" href="#">CodeMaster</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#forum">Forum</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- Student Comments Section -->
-    <section id="comments" class="content py-12 md:py-16">
-        <div class="container">
-            <h2 class="text-3xl font-bold text-center mb-8 md:mb-12">Student Comments</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="comment-section p-4 space-y-4">
-                        <!-- Comment 1 -->
-                        <div class="comment-card p-4 rounded-lg">
-                            <div class="d-flex align-items-center mb-3">
-                                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Student" class="message-avatar me-3">
-                                <div>
-                                    <h5 class="font-semibold mb-0">Jessica M.</h5>
-                                    <div class="text-yellow-400">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mb-2">The Python course completely transformed my career. I went from knowing nothing to building my own web applications in just 3 months. The instructor explains complex concepts in a way that's easy to understand.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="message-time">Posted 2 weeks ago</span>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-light">
-                                        <i class="fas fa-thumbs-up me-1"></i> 24
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-light">
-                                        <i class="fas fa-reply me-1"></i> Reply
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Comment 2 -->
-                        <div class="comment-card p-4 rounded-lg">
-                            <div class="d-flex align-items-center mb-3">
-                                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Student" class="message-avatar me-3">
-                                <div>
-                                    <h5 class="font-semibold mb-0">David K.</h5>
-                                    <div class="text-yellow-400">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mb-2">The Linux Administration course is packed with practical knowledge you won't find in books. The hands-on labs were incredibly valuable for my job as a system administrator.</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="message-time">Posted 1 month ago</span>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-light">
-                                        <i class="fas fa-thumbs-up me-1"></i> 18
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-light">
-                                        <i class="fas fa-reply me-1"></i> Reply
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <!-- Reply -->
-                            <div class="comment-card p-3 mt-3 ms-4 rounded-lg">
-                                <div class="d-flex align-items-center mb-2">
-                                    <img src="https://via.placeholder.com/30x30?text=CM" alt="Instructor" class="message-avatar me-2" width="30" height="30">
-                                    <h6 class="font-semibold mb-0">Instructor</h6>
-                                </div>
-                                <p class="mb-2 text-sm">Thanks David! I'm glad you found the labs useful. Let me know if you'd like any additional resources on specific topics.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="message-time">Posted 3 weeks ago</span>
-                                    <div class="d-flex gap-2">
-                                        <button class="btn btn-sm btn-outline-light">
-                                            <i class="fas fa-thumbs-up me-1"></i> 5
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Comment Form -->
-                        <div class="bg-slate-800 bg-opacity-70 rounded-lg p-4 mt-4">
-                            <h4 class="text-xl font-semibold mb-3">Leave a Comment</h4>
-                            <form id="comment-form" class="space-y-3">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <input type="text" class="form-control bg-slate-700 border-slate-600 text-white" 
-                                               placeholder="Your Name" required>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <select class="form-select bg-slate-700 border-slate-600 text-white" required>
-                                            <option value="">Rate the course</option>
-                                            <option value="5">★★★★★ Excellent</option>
-                                            <option value="4">★★★★☆ Very Good</option>
-                                            <option value="3">★★★☆☆ Good</option>
-                                            <option value="2">★★☆☆☆ Fair</option>
-                                            <option value="1">★☆☆☆☆ Poor</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <textarea class="form-control bg-slate-700 border-slate-600 text-white" 
-                                              rows="3" placeholder="Your Comment" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-comment me-2"></i> Post Comment
-                                </button>
-                            </form>
-                        </div>
+    <!-- Header -->
+    <header class="container mt-5 text-center">
+        <h1 id="typing-header" class="display-4 mb-4"></h1>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container my-5">
+        <!-- Courses Section -->
+        <section id="home" class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="course-card card bg-dark text-white h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Python Programming</h5>
+                        <a href="https://wa.me/1234567890" class="btn btn-success mt-3">Join via WhatsApp</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <!-- Repeat similar blocks for other courses -->
+        </section>
 
-    <!-- Updated Footer with Bold Social Media Icons -->
-    <footer class="content py-6 bg-slate-900 bg-opacity-90">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <div class="d-flex align-items-center justify-content-center justify-content-md-start">
-                        <img src="https://via.placeholder.com/40x40?text=CM" alt="Logo" class="rounded-circle me-2" width="36" height="36">
-                        <span class="font-bold">CodeMaster Academy</span>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-4 mb-md-0 text-center">
-                    <p class="mb-0 small">Connect with us on social media:</p>
-                </div>
-                <div class="col-md-4 text-center text-md-end">
-                    <div class="d-flex justify-content-center justify-content-md-end gap-2">
-                        <a href="#" class="social-icon facebook" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon tiktok" title="TikTok">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href="#" class="social-icon linkedin" title="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="social-icon instagram" title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-icon youtube" title="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
-                    <p class="mb-0 small mt-2">&copy; <span id="current-year"></span> CodeMaster Academy. All rights reserved.</p>
+        <!-- About Section -->
+        <section id="about" class="d-none">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <h2>About Us</h2>
+                    <p>We teach programming from scratch to professional level...</p>
+                    <p>Contact: <a href="mailto:contact@codemaster.com" class="text-success">contact@codemaster.com</a></p>
+                    <p>WhatsApp: <a href="https://wa.me/1234567890" class="text-success">+1 234 567 890</a></p>
                 </div>
             </div>
+        </section>
+
+        <!-- Forum Section -->
+        <section id="forum" class="d-none">
+            <div class="card bg-dark text-white">
+                <div class="card-body">
+                    <div id="chat-box" class="mb-3" style="height: 300px; overflow-y: auto;"></div>
+                    <div class="input-group">
+                        <input type="text" id="message-input" class="form-control" placeholder="Type your message">
+                        <button class="btn btn-success" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <div class="mb-3">
+                <strong>Follow us:</strong>
+                <a href="#" class="text-white mx-2">TikTok</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+                <a href="#" class="text-white mx-2">YouTube</a>
+                <a href="#" class="text-white mx-2">X</a>
+                <a href="#" class="text-white mx-2">WhatsApp</a>
+            </div>
+            <p>Contact: <a href="mailto:contact@codemaster.com" class="text-success">Email</a> | 
+               <a href="tel:+1234567890" class="text-success">Phone</a></p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
-    <!-- Firebase Configuration -->
-    <script>
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            databaseURL: "YOUR_DATABASE_URL",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-    </script>
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
+
     <script>
-        // Firebase Chat Functionality
-        const messageForm = document.getElementById('message-form');
-        const messageName = document.getElementById('message-name');
-        const messageText = document.getElementById('message-text');
-        const forumMessages = document.getElementById('forum-messages');
+        // Typing Effect
+        const headerText = "Register for your programming course.";
+        let index = 0;
         
-        // Reference to the messages in Firebase
-        const messagesRef = database.ref('messages');
-        
-        // Load existing messages
-        messagesRef.on('value', (snapshot) => {
-            const messages = snapshot.val();
-            forumMessages.innerHTML = '';
-            
-            if (messages) {
-                Object.keys(messages).forEach((key) => {
-                    const message = messages[key];
-                    const messageElement = createMessageElement(message);
-                    forumMessages.appendChild(messageElement);
-                });
-                
-                // Scroll to bottom
-                forumMessages.scrollTop = forumMessages.scrollHeight;
-            } else {
-                forumMessages.innerHTML = `
-                    <div class="text-center py-4 text-gray-400">
-                        <i class="fas fa-comments fa-2x mb-2"></i>
-                        <p>No messages yet. Be the first to post!</p>
-                    </div>
-                `;
+        function typeHeader() {
+            if (index < headerText.length) {
+                document.getElementById('typing-header').textContent += headerText.charAt(index);
+                index++;
+                setTimeout(typeHeader, 100);
             }
-        });
-        
-        // Create a message element
-        function createMessageElement(message) {
-            const now = new Date();
-            const messageDate = new Date(message.timestamp);
-            const timeDiff = Math.floor((now - messageDate) / 1000); // in seconds
-            
-            let timeAgo;
-            if (timeDiff < 60) {
-                timeAgo = `${timeDiff} seconds ago`;
-            } else if (timeDiff < 3600) {
-                const mins = Math.floor(timeDiff / 60);
-                timeAgo = `${mins} minute${mins !== 1 ? 's' : ''} ago`;
-            } else if (timeDiff < 86400) {
-                const hours = Math.floor(timeDiff / 3600);
-                timeAgo = `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-            } else {
-                const days = Math.floor(timeDiff / 86400);
-                timeAgo = `${days} day${days !== 1 ? 's' : ''} ago`;
-            }
-            
-            return document.createRange().createContextualFragment(`
-                <div class="forum-message p-3">
-                    <div class="d-flex align-items-center mb-2">
-                        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(message.name)}&background=random" 
-                             alt="${message.name}" class="message-avatar me-3">
-                        <div>
-                            <h5 class="font-semibold mb-0">${message.name}</h5>
-                            <span class="message-time">${timeAgo}</span>
-                        </div>
-                    </div>
-                    <p class="mb-0">${message.text}</p>
-                </div>
-            `);
         }
-        
-        // Submit new message
-        messageForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+
+        // Chat Functionality
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const chatBox = document.getElementById('chat-box');
             
-            if (messageName.value.trim() === '' || messageText.value.trim() === '') {
-                alert('Please enter your name and message');
-                return;
+            if (input.value.trim()) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'mb-2 p-2 bg-secondary rounded';
+                messageDiv.textContent = input.value;
+                chatBox.appendChild(messageDiv);
+                input.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
             }
-            
-            // Create new message object
-            const newMessage = {
-                name: messageName.value.trim(),
-                text: messageText.value.trim(),
-                timestamp: Date.now()
-            };
-            
-            // Push to Firebase
-            messagesRef.push(newMessage);
-            
-            // Clear the input
-            messageText.value = '';
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.add('d-none');
+                });
+                document.querySelector(e.target.getAttribute('href')).classList.remove('d-none');
+            });
         });
-        
-        // Comment form submission
-        document.getElementById('comment-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your comment! It will be reviewed before posting.');
-            e.target.reset();
-        });
-        
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // All your previous JavaScript functionality...
-        // ... (keep all your previous JavaScript from earlier versions) ...
+
+        // Initialize typing effect
+        window.onload = typeHeader;
     </script>
 </body>
 </html>
