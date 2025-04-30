@@ -3,211 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeMaster Academy</title>
-    
-    <!-- Bootstrap CSS -->
+    <title>CodeMatrix Academy</title>
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        .matrix-bg {
-            background: linear-gradient(to right, #000000, #001f00);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .matrix-bg::before {
-            content: '';
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background: #00ff00;
-            box-shadow: 0 0 10px #00ff00;
-            animation: matrix 3s linear infinite;
+        @keyframes matrix {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
 
-        @keyframes matrix {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
+        .matrix-bg {
+            background: 
+                linear-gradient(rgba(0, 30, 0, 0.9), rgba(0, 0, 0, 0.9)),
+                repeating-linear-gradient(45deg, 
+                    transparent 0px, 
+                    transparent 2px, 
+                    rgba(0, 255, 0, 0.1) 2px, 
+                    rgba(0, 255, 0, 0.1) 4px);
+            animation: matrix 20s linear infinite;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #10b981;
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .course-card {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .whatsapp-btn {
+            animation: pulse 2s infinite;
+        }
+
+        .social-icon {
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
             transform: translateY(-5px);
         }
     </style>
 </head>
-<body class="matrix-bg text-white">
-    
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="text-gray-100 matrix-bg">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3 bg-black/50">
         <div class="container">
-            <a class="navbar-brand" href="#">CodeMaster</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand text-2xl font-bold text-emerald-400" href="#">
+                <i class="fas fa-code mr-2"></i>CodeMatrix
+            </a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-xl font-bold" href="#home">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-xl font-bold" href="#courses">Courses</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#forum">Forum</a>
+                    <li class="nav-item mx-3">
+                        <a class="nav-link text-xl font-bold" href="#contact">Contact</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Header -->
-    <header class="container mt-5 text-center">
-        <h1 id="typing-header" class="display-4 mb-4"></h1>
-    </header>
-
-    <!-- Main Content -->
-    <main class="container my-5">
-        <!-- Courses Section -->
-        <!-- Courses Section -->
-<section id="home" class="row g-4">
-    <!-- Python Card -->
-    <div class="col-md-6 col-lg-3">
-        <div class="course-card card bg-dark text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">Python Programming</h5>
-                <p class="card-text">Learn Python from basics to advanced web development</p>
-                <a href="https://wa.me/1234567890" class="btn btn-success mt-3">Join via WhatsApp</a>
-            </div>
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-5">
+        <div class="container text-center">
+            <h1 id="typewriter" class="text-5xl md:text-7xl font-bold mb-6 text-emerald-400"></h1>
+            <button class="btn btn-lg btn-success px-8 py-3 text-2xl mt-6">
+                REGISTER NOW <i class="fas fa-arrow-right ml-2"></i>
+            </button>
         </div>
-    </div>
+    </section>
 
-    <!-- C Language Card -->
-    <div class="col-md-6 col-lg-3">
-        <div class="course-card card bg-dark text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">C Language Programming</h5>
-                <p class="card-text">Master the fundamentals of system programming</p>
-                <a href="https://wa.me/1234567890" class="btn btn-success mt-3">Join via WhatsApp</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bash Scripting Card -->
-    <div class="col-md-6 col-lg-3">
-        <div class="course-card card bg-dark text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">Bash Scripting</h5>
-                <p class="card-text">Automate tasks and master command-line tools</p>
-                <a href="https://wa.me/1234567890" class="btn btn-success mt-3">Join via WhatsApp</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Linux Administration Card -->
-    <div class="col-md-6 col-lg-3">
-        <div class="course-card card bg-dark text-white h-100">
-            <div class="card-body">
-                <h5 class="card-title">Linux Administration</h5>
-                <p class="card-text">Become a professional Linux system administrator</p>
-                <a href="https://wa.me/1234567890" class="btn btn-success mt-3">Join via WhatsApp</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-        <!-- About Section -->
-        <section id="about" class="d-none">
-            <div class="card bg-dark text-white">
-                <div class="card-body">
-                    <h2>About Us</h2>
-                    <p>We teach programming from scratch to professional level...</p>
-                    <p>Contact: <a href="mailto:contact@codemaster.com" class="text-success">contact@codemaster.com</a></p>
-                    <p>WhatsApp: <a href="https://wa.me/1234567890" class="text-success">+1 234 567 890</a></p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Forum Section -->
-        <section id="forum" class="d-none">
-            <div class="card bg-dark text-white">
-                <div class="card-body">
-                    <div id="chat-box" class="mb-3" style="height: 300px; overflow-y: auto;"></div>
-                    <div class="input-group">
-                        <input type="text" id="message-input" class="form-control" placeholder="Type your message">
-                        <button class="btn btn-success" onclick="sendMessage()">Send</button>
+    <!-- Courses Section -->
+    <section id="courses" class="py-16">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 text-emerald-400">Our Courses</h2>
+            <div class="row g-5">
+                <!-- Python Card -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card rounded-lg p-5 h-100">
+                        <i class="fab fa-python text-6xl text-blue-400 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-3">Python Programming</h3>
+                        <p class="text-gray-400">Master Python from basics to advanced machine learning</p>
                     </div>
                 </div>
+                <!-- Repeat similar cards for C, Bash, Linux -->
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/1234567890" 
+       class="whatsapp-btn fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
+    <footer class="bg-black/50 py-8">
         <div class="container text-center">
-            <div class="mb-3">
-                <strong>Follow us:</strong>
-                <a href="#" class="text-white mx-2">TikTok</a>
-                <a href="#" class="text-white mx-2">Instagram</a>
-                <a href="#" class="text-white mx-2">YouTube</a>
-                <a href="#" class="text-white mx-2">X</a>
-                <a href="#" class="text-white mx-2">WhatsApp</a>
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="#" class="social-icon text-2xl text-white">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="#" class="social-icon text-2xl text-white">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon text-2xl text-white">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-icon text-2xl text-white">
+                    <i class="fab fa-youtube"></i>
+                </a>
             </div>
-            <p>Contact: <a href="mailto:contact@codemaster.com" class="text-success">Email</a> | 
-               <a href="tel:+1234567890" class="text-success">Phone</a></p>
+            <p class="text-gray-400">&copy; 2023 CodeMatrix Academy. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
-        // Typing Effect
-        const headerText = "Register for your programming course.";
+        // Typewriter Effect
+        const text = "Register for your programming courses now";
         let index = 0;
         
-        function typeHeader() {
-            if (index < headerText.length) {
-                document.getElementById('typing-header').textContent += headerText.charAt(index);
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(index);
                 index++;
-                setTimeout(typeHeader, 100);
+                setTimeout(typeWriter, 50);
             }
         }
+        typeWriter();
 
-        // Chat Functionality
-        function sendMessage() {
-            const input = document.getElementById('message-input');
-            const chatBox = document.getElementById('chat-box');
-            
-            if (input.value.trim()) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'mb-2 p-2 bg-secondary rounded';
-                messageDiv.textContent = input.value;
-                chatBox.appendChild(messageDiv);
-                input.value = '';
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }
-        }
-
-        // Navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelectorAll('section').forEach(section => {
-                    section.classList.add('d-none');
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
-                document.querySelector(e.target.getAttribute('href')).classList.remove('d-none');
             });
         });
 
-        // Initialize typing effect
-        window.onload = typeHeader;
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-black/80');
+                nav.classList.remove('bg-black/50');
+            } else {
+                nav.classList.remove('bg-black/80');
+                nav.classList.add('bg-black/50');
+            }
+        });
     </script>
 </body>
 </html>
