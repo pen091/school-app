@@ -1,118 +1,189 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PEN - Learn Python, C, Bash, Linux</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster Academy</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .course-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            background-color: rgba(30, 41, 59, 0.7);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(15, 23, 42, 0.8) !important;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <!-- Header -->
-  <header class="bg-white shadow-md p-4 flex justify-between items-center">
-    <div class="text-xl font-bold">PEN</div>
-    <nav class="md:flex hidden space-x-4">
-      <a href="#home" class="hover:text-blue-500">Home</a>
-      <a href="#about" class="hover:text-blue-500">About</a>
-      <a href="#forum" class="hover:text-blue-500">Forum</a>
+<body class="text-gray-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="https://via.placeholder.com/50" alt="Logo" class="rounded-circle me-2">
+                <span class="font-bold text-xl">CodeMaster Academy</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#courses">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <div class="md:hidden">
-      <button id="menuToggle" class="text-xl">Menu</button>
-      <div id="mobileMenu" class="hidden absolute bg-white right-4 top-16 p-2 shadow rounded space-y-2">
-        <a href="#home" class="block">Home</a>
-        <a href="#about" class="block">About</a>
-        <a href="#forum" class="block">Forum</a>
-      </div>
-    </div>
-  </header>  <!-- Main -->  <main id="home" class="p-6">
-    <div class="text-center">
-      <div class="text-3xl font-bold mb-4">Learn Python, C, Bash, Linux</div>
-      <div id="slider" class="text-2xl font-semibold h-12 mb-6"></div>
-      <a href="#forum" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Register Now</a>
-    </div>
-  </main>  <!-- About -->  <section id="about" class="p-6">
-    <h2 class="text-2xl font-bold mb-4">About</h2>
-    <p>We teach Python, C, Bash, and Linux through interactive lessons and real-time discussions in the forum.</p>
-  </section>  <!-- Forum -->  <section id="forum" class="p-6">
-    <h2 class="text-2xl font-bold mb-4">Forum</h2>
-    <div id="authSection">
-      <input id="email" placeholder="Email" class="border p-2 mr-2">
-      <input id="password" type="password" placeholder="Password" class="border p-2 mr-2">
-      <button onclick="signUp()" class="bg-green-600 text-white px-4 py-1 rounded">Sign Up</button>
-      <button onclick="signIn()" class="bg-blue-600 text-white px-4 py-1 rounded">Sign In</button>
-    </div>
-    <div id="chatSection" class="hidden mt-4">
-      <div id="chatBox" class="border h-40 overflow-y-scroll p-2 mb-2"></div>
-      <input id="message" placeholder="Type your message..." class="border p-2 w-3/4">
-      <button onclick="sendMessage()" class="bg-indigo-600 text-white px-4 py-1 rounded">Send</button>
-    </div>
-  </section>  <!-- Footer -->  <footer class="bg-white mt-10 p-4 text-center border-t">
-    <p>Topics: Python, C, Bash, Linux</p>
-    <div class="mt-2 space-x-4">
-      <a href="#" class="text-blue-500">TikTok</a>
-      <a href="#" class="text-red-600">YouTube</a>
-      <a href="#" class="text-pink-600">Instagram</a>
-      <a href="https://wa.me/1234567890" target="_blank" class="inline-flex items-center">
-        <img src="https://img.icons8.com/color/24/000000/whatsapp--v1.png" class="mr-1" /> WhatsApp Bot
-      </a>
-    </div>
-  </footer>  <!-- JavaScript -->  <script>
-    document.getElementById('menuToggle').addEventListener('click', () => {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
-    });
 
-    const topics = ["Python", "C", "Bash", "Linux"];
-    let index = 0;
-    setInterval(() => {
-      document.getElementById("slider").innerText = topics[index];
-      index = (index + 1) % topics.length;
-    }, 2000);
+    <!-- Hero Section -->
+    <section id="home" class="content py-20">
+        <div class="container text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Master Programming & Linux</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Learn Python, C, Bash, and Linux Administration from an experienced instructor</p>
+            <a href="#courses" class="btn btn-primary btn-lg px-6 py-3">Explore Courses</a>
+        </div>
+    </section>
 
-    // Firebase setup
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      databaseURL: "YOUR_DATABASE_URL",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
+    <!-- About Section -->
+    <section id="about" class="content py-16 bg-slate-900 bg-opacity-70">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-center mb-12">About Me</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://via.placeholder.com/500x300" alt="Instructor" class="rounded-lg w-full">
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="text-2xl font-semibold mb-4">Your Instructor</h3>
+                    <p class="mb-4">With over 10 years of experience in software development and system administration, I bring real-world knowledge to my teaching.</p>
+                    <p class="mb-4">My approach focuses on practical, hands-on learning that prepares you for actual job requirements.</p>
+                    <p>Whether you're a beginner or looking to advance your skills, my courses are designed to help you achieve your goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function signUp() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => alert('Signed Up'))
-        .catch(err => alert(err.message));
-    }
+    <!-- Courses Section -->
+    <section id="courses" class="content py-16">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-center mb-12">Our Courses</h2>
+            <div class="row g-4">
+                <!-- Python Course -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card rounded-lg overflow-hidden border border-slate-700 p-6 h-full">
+                        <div class="text-center mb-4">
+                            <i class="fab fa-python text-4xl text-blue-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-center mb-3">Python Programming</h3>
+                        <p class="mb-4">Learn Python from basics to advanced topics including OOP, data structures, and web development.</p>
+                        <a href="https://wa.me/1234567890?text=Hi! I'm interested in the Python course" 
+                           class="btn btn-success w-full d-flex align-items-center justify-content-center"
+                           target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- C Course -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card rounded-lg overflow-hidden border border-slate-700 p-6 h-full">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-code text-4xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-center mb-3">C Programming</h3>
+                        <p class="mb-4">Master the fundamentals of C programming, memory management, and system-level development.</p>
+                        <a href="https://wa.me/1234567890?text=Hi! I'm interested in the C Programming course" 
+                           class="btn btn-success w-full d-flex align-items-center justify-center"
+                           target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Bash Course -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card rounded-lg overflow-hidden border border-slate-700 p-6 h-full">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-terminal text-4xl text-green-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-center mb-3">Bash Scripting</h3>
+                        <p class="mb-4">Automate tasks and master shell scripting to become more productive in Linux environments.</p>
+                        <a href="https://wa.me/1234567890?text=Hi! I'm interested in the Bash Scripting course" 
+                           class="btn btn-success w-full d-flex align-items-center justify-center"
+                           target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Linux Admin Course -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card rounded-lg overflow-hidden border border-slate-700 p-6 h-full">
+                        <div class="text-center mb-4">
+                            <i class="fab fa-linux text-4xl text-yellow-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-center mb-3">Linux Administration</h3>
+                        <p class="mb-4">Learn system administration, networking, security, and server management in Linux.</p>
+                        <a href="https://wa.me/1234567890?text=Hi! I'm interested in the Linux Administration course" 
+                           class="btn btn-success w-full d-flex align-items-center justify-center"
+                           target="_blank">
+                            <i class="fab fa-whatsapp me-2"></i> Chat on WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function signIn() {
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-          document.getElementById('authSection').style.display = 'none';
-          document.getElementById('chatSection').style.display = 'block';
-          db.ref('chat').on('child_added', snapshot => {
-            const msg = snapshot.val();
-            const div = document.createElement('div');
-            div.textContent = msg;
-            document.getElementById('chatBox').appendChild(div);
-          });
-        })
-        .catch(err => alert(err.message));
-    }
-
-    function sendMessage() {
-      const msg = document.getElementById('message').value;
-      db.ref('chat').push(msg);
-      document.getElementById('message').value = '';
-    }
-  </script></body>
-</html>
+    <!-- Contact Section -->
+    <section id="contact" class="content py-16 bg-slate-900 bg-opacity-70">
+        <div class="container">
+            <h2 class="text-3xl font-bold text-center mb-12">Contact Me</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div
