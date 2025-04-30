@@ -2,227 +2,197 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CodeMaster Academy</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* Custom responsive styles */
-        @media (max-width: 576px) {
-            .course-card {
-                margin-bottom: 1.5rem;
-            }
-            .navbar-brand span {
-                font-size: 1.1rem;
-            }
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (min-width: 577px) and (max-width: 768px) {
-            .course-card {
-                min-height: 300px;
-            }
-        }
-
-        @media (min-width: 769px) and (max-width: 992px) {
-            .course-card {
-                min-height: 280px;
-            }
-        }
-
-        /* iPad Pro specific */
-        @media only screen 
-          and (min-device-width: 1024px) 
-          and (max-device-width: 1366px) 
-          and (-webkit-min-device-pixel-ratio: 2) {
-            .navbar {
-                padding: 1rem 2rem;
-            }
-        }
-
-        /* Android device adjustments */
-        @media screen and (-webkit-min-device-pixel-ratio: 0) {
-            select,
-            textarea,
-            input {
-                font-size: 16px !important;
-            }
-        }
-
-        /* General responsive styles */
-        body {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-                        url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97') center/cover fixed;
-            min-height: 100vh;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .nav-link {
+        .cyber-bg {
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d);
             position: relative;
-            padding: 0.5rem 1rem !important;
+            overflow: hidden;
         }
 
-        .whatsapp-btn {
-            animation: pulse 2s infinite;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
+        .cyber-glow {
+            box-shadow: 0 0 15px #0ff;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .chat-bubble {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px #0ff;
         }
     </style>
 </head>
-<body class="text-gray-100">
+<body class="cyber-bg text-gray-100">
+    
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-2 bg-black/50">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="https://via.placeholder.com/40x40?text=CM" alt="Logo" 
-                     class="rounded-circle me-2 img-fluid">
-                <span class="text-xl font-bold d-none d-sm-inline">CodeMaster</span>
-            </a>
-            <button class="navbar-toggler" type="button" 
-                    data-bs-toggle="collapse" 
-                    data-bs-target="#navbarNav">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container">
+            <a class="navbar-brand neon-text" href="#">CODEMASTER</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto text-center">
-                    <li class="nav-item mx-lg-2 my-1 my-lg-0">
-                        <a class="nav-link" href="#home">Home</a>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active home-link" href="#home">Home</a>
                     </li>
-                    <li class="nav-item mx-lg-2 my-1 my-lg-0">
-                        <a class="nav-link" href="#about">About</a>
+                    <li class="nav-item">
+                        <a class="nav-link about-link" href="#about">About</a>
                     </li>
-                    <li class="nav-item mx-lg-2 my-1 my-lg-0">
-                        <a class="nav-link" href="#courses">Courses</a>
-                    </li>
-                    <li class="nav-item mx-lg-2 my-1 my-lg-0">
-                        <a class="nav-link" href="#contact">Contact</a>
+                    <li class="nav-item">
+                        <a class="nav-link forum-link" href="#forum">Forum</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="min-vh-100 d-flex align-items-center pt-5 mt-5">
-        <div class="container text-center">
-            <h1 class="display-4 fw-bold mb-4 pt-5 mt-5">Master Programming & Linux</h1>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8">
-                    <p class="lead mb-4">Learn in-demand tech skills from industry experts</p>
-                    <button class="btn btn-lg btn-success px-5 py-3 mb-4">Start Learning</button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Header -->
+    <header class="container text-center py-5">
+        <h1 id="typing-header" class="display-4 neon-text mb-4"></h1>
+    </header>
 
-    <!-- Courses Section -->
-    <section id="courses" class="py-5">
-        <div class="container">
-            <h2 class="text-3xl text-center mb-5 pt-4">Our Courses</h2>
-            <div class="row g-4 justify-content-center">
-                <!-- Python Card -->
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                    <div class="glass-card p-4 h-100">
-                        <i class="fab fa-python text-4xl text-blue-400 mb-3 d-block"></i>
-                        <h3 class="h4 mb-3">Python Programming</h3>
-                        <p class="mb-4">Learn Python from basics to advanced topics</p>
-                        <a href="https://wa.me/1234567890" 
-                           class="btn btn-success whatsapp-btn"
-                           target="_blank">
-                            <i class="fab fa-whatsapp me-2"></i> Chat Now
-                        </a>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home" class="row g-4">
+            <!-- Course Cards -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card cyber-glow h-100 bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title text-info">Python</h5>
+                        <p class="card-text">Learn Python programming from basics to advanced</p>
+                        <a href="https://wa.me/1234567890" class="btn btn-outline-info w-100">Join via WhatsApp</a>
                     </div>
                 </div>
-                
-                <!-- Add other courses following the same pattern -->
-                
             </div>
-        </div>
-    </section>
+            <!-- Repeat for other courses -->
+        </section>
+
+        <!-- About Section (Hidden by default) -->
+        <section id="about" class="d-none mt-5">
+            <div class="card cyber-glow bg-dark">
+                <div class="card-body">
+                    <h2 class="text-info">About Our Program</h2>
+                    <p>We provide comprehensive programming education...</p>
+                    <div class="mt-4">
+                        <h5 class="text-info">Contact Us:</h5>
+                        <p>Email: <a href="mailto:contact@codemaster.com" class="text-info">contact@codemaster.com</a></p>
+                        <p>WhatsApp: <a href="https://wa.me/1234567890" class="text-info">+1 234 567 890</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forum Section (Hidden by default) -->
+        <section id="forum" class="d-none mt-5">
+            <div class="card cyber-glow bg-dark">
+                <div class="card-body">
+                    <div id="chat-container" class="mb-3" style="height: 400px; overflow-y: auto;">
+                        <!-- Chat messages will be inserted here -->
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="message-input" class="form-control bg-secondary text-white" 
+                               placeholder="Type your message...">
+                        <button class="btn btn-info" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="py-4 bg-black/50 mt-auto">
-        <div class="container">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <div class="mb-3 mb-md-0">
-                    <p class="mb-0">&copy; 2023 CodeMaster Academy</p>
-                </div>
-                <div class="d-flex gap-4">
-                    <a href="#" class="text-white fs-4">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                    <a href="#" class="text-white fs-4">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="text-white fs-4">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="#" class="text-white fs-4">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
+    <footer class="bg-black mt-5 py-4">
+        <div class="container text-center">
+            <div class="social-links mb-3">
+                <strong class="text-info">Follow us:</strong>
+                <a href="#" class="text-white mx-2">TikTok</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+                <a href="#" class="text-white mx-2">YouTube</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">WhatsApp</a>
+            </div>
+            <div class="contact-info">
+                <p class="text-info">
+                    Contact: <a href="mailto:contact@codemaster.com" class="text-white">Email</a> | 
+                    <a href="tel:+1234567890" class="text-white">Phone</a>
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        // Responsive navbar
-        function updateNavbar() {
-            const nav = document.querySelector('nav');
-            if (window.innerWidth >= 992) {
-                nav.classList.remove('bg-black/50');
-                nav.classList.add('bg-black/80');
-            } else {
-                nav.classList.add('bg-black/50');
+        // Typing Effect
+        const headerText = "Register for your programming course.";
+        let charIndex = 0;
+        
+        function typeHeader() {
+            if (charIndex < headerText.length) {
+                document.getElementById('typing-header').textContent += headerText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeHeader, 100);
             }
         }
 
-        // Smooth scroll with offset
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                const headerOffset = 70;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        // Chat Functionality
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const chatContainer = document.getElementById('chat-container');
+            
+            if (input.value.trim()) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-bubble mb-2 p-2 bg-secondary rounded';
+                messageDiv.textContent = input.value;
+                chatContainer.appendChild(messageDiv);
+                input.value = '';
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
+        // Navigation Handling
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Hide all sections
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.add('d-none');
                 });
+
+                // Show selected section
+                const targetSection = document.querySelector(this.getAttribute('href'));
+                targetSection.classList.remove('d-none');
+
+                // Update active class
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
             });
         });
 
         // Initialize
-        window.addEventListener('resize', updateNavbar);
-        updateNavbar();
+        window.onload = () => {
+            typeHeader();
+            document.querySelector('.home-link').click();
+        };
     </script>
 </body>
 </html>
